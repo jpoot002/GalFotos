@@ -16,8 +16,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSliderModule } from '@angular/material/slider';
 
 
-
-
 @NgModule({
   imports: [
     CommonModule,

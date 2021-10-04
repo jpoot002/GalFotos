@@ -20,11 +20,15 @@ import { AppComponent } from './app.component';
 //Service
 import { ImagenesService } from './services/imagene/imagenes.service'
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     ImagenesComponent,
     CargaComponent
+
   ],
   imports: [
     BrowserModule,

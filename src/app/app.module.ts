@@ -18,16 +18,17 @@ import { CargaComponent } from './components/carga/carga.component';
 import { AppComponent } from './app.component';
 
 //Service
-import { ImagenesService } from './services/imagene/imagenes.service'
+import { ImagenesService } from './services/imagene/imagenes.service';
 
-
-
+//directives
+import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-directive.directive'
 
 @NgModule({
   declarations: [
     AppComponent,
     ImagenesComponent,
-    CargaComponent
+    CargaComponent,
+    NgDropFilesDirectiveDirective
 
   ],
   imports: [

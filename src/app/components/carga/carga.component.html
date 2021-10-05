@@ -1,1 +1,100 @@
-<p>carga works!</p>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile style="border: 2px dashed #9999ff;">
+        <div>
+            <h2>Seleccione archivos</h2>
+            <div style="  
+            border: 2px dashed #9999ff;
+            width: 550px;
+            height: 300px;
+            text-align:center;
+            " appNgDropFilesDirective>
+                <h4>Deje caer aquí los archivos</h4>
+                <img mat-card-image src="../../../assets/imagenes/tipos-de-archivos-de-imagen.png" alt="Photo" style=" 
+                    width: 500px;
+                    height:250px;
+                    margin:0px auto;
+                            ">
+            </div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile style="border: 2px dashed #9999ff;">
+        <div class="grid-container">
+            <div>
+                <h2>Cargar archivos</h2>
+                <button mat-raised-button color="primary" (click)="CargarImagenes()"  [disabled]="archivos.length === 0">Cargar</button>
+                <button mat-raised-button color="warn" (click)="LimpiarArchivos()" >Limpiar</button>
+
+            </div>
+            <div>
+                <table class="default">
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                      
+                          <ng-container matColumnDef="codigo">
+                            <th mat-header-cell *matHeaderCellDef> Código </th>
+                            <td mat-cell *matCellDef="let articulo"> {{articulo.codigo}} </td>
+                          </ng-container>
+                      
+                          <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                            <td mat-cell *matCellDef="let articulo"> {{articulo.descripcion}} </td>
+                          </ng-container>
+                      
+                          <ng-container matColumnDef="precio">
+                            <th mat-header-cell *matHeaderCellDef> Precio </th>
+                            <td mat-cell *matCellDef="let articulo"> {{articulo.precio}} </td>
+                          </ng-container>
+                      
+                          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                          <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                        </table>
+                      </div>
+                </table>
+            </div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
+
+
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+            'main'
+            'footer';
+    }
+</style>
+
+
+
+
+
+
+
+
+  
+
+
+<!--
+<style>
+    .mat-figure-personal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+</style>
+
+-->

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'GalFotos';
+
+  constructor (private router: Router){}
+
+  public Carga() {
+    this.router.navigate(['Carga']);
+  }
+
+  public Inicio() {
+    this.router.navigate(['Inico']);
+  }
 }
+
+
+
+
+

@@ -4,8 +4,8 @@ import { ImagenesComponent } from './components/imagenes/imagenes.component';
 import { CargaComponent } from './components/carga/carga.component';
 
 const routes: Routes = [
-  { path: 'fotos', component: ImagenesComponent },
-    { path: 'carga', component: CargaComponent },
+  { path: 'Inico', component: ImagenesComponent },
+    { path: 'Carga', component: CargaComponent },
     { path: '**', pathMatch: 'full', redirectTo: 'fotos' }
 ];
 

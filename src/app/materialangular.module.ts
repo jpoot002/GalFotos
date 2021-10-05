@@ -10,11 +10,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSliderModule } from '@angular/material/slider';
-
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -28,6 +26,9 @@ import { MatSliderModule } from '@angular/material/slider';
     MatTabsModule,
     MatListModule,
     MatAutocompleteModule,
+    MatProgressBarModule,
+    MatGridListModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -39,6 +40,9 @@ import { MatSliderModule } from '@angular/material/slider';
     MatTabsModule,
     MatListModule,
     MatAutocompleteModule,
+    MatProgressBarModule,
+    MatGridListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

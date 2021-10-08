@@ -2,12 +2,9 @@
     <mat-grid-tile style="border: 2px dashed #9999ff;">
         <div>
             <h2>Seleccione archivos</h2>
-            <div style="  
-            border: 2px dashed #9999ff;
-            width: 550px;
-            height: 300px;
-            text-align:center;
-            " appNgDropFilesDirective>
+            <div appNgDropFilesDirective  [fileArchivo]= "fileArchivo"
+                (mouseSobre)="ImagenElemento = $event" [ngClass]="{'Morado': ImagenElemento, 'Gris': !ImagenElemento}">
+                
                 <h4>Deje caer aquí los archivos</h4>
                 <img mat-card-image src="../../../assets/imagenes/tipos-de-archivos-de-imagen.png" alt="Photo" style=" 
                     width: 500px;
@@ -21,42 +18,16 @@
         <div class="grid-container">
             <div>
                 <h2>Cargar archivos</h2>
-                <button mat-raised-button color="primary" (click)="CargarImagenes()"  [disabled]="archivos.length === 0">Cargar</button>
-                <button mat-raised-button color="warn" (click)="LimpiarArchivos()" >Limpiar</button>
+                <button mat-raised-button color="primary" (click)="CargarImagenes()"  [disabled]="fileArchivo.length === 0">Cargar</button>
+                <button mat-raised-button color="warn" (click)="LimpiarImagenes()" >Limpiar</button>
 
             </div>
             <div>
-                <table class="default">
-                    <div class="mat-elevation-z8">
-                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                      
-                          <ng-container matColumnDef="codigo">
-                            <th mat-header-cell *matHeaderCellDef> Código </th>
-                            <td mat-cell *matCellDef="let articulo"> {{articulo.codigo}} </td>
-                          </ng-container>
-                      
-                          <ng-container matColumnDef="descripcion">
-                            <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                            <td mat-cell *matCellDef="let articulo"> {{articulo.descripcion}} </td>
-                          </ng-container>
-                      
-                          <ng-container matColumnDef="precio">
-                            <th mat-header-cell *matHeaderCellDef> Precio </th>
-                            <td mat-cell *matCellDef="let articulo"> {{articulo.precio}} </td>
-                          </ng-container>
-                      
-                          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-                          <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
-                        </table>
-                      </div>
-                </table>
+               
             </div>
         </div>
     </mat-grid-tile>
 </mat-grid-list>
-
-
-
 
 
 
@@ -68,10 +39,31 @@
             'main'
             'footer';
     }
+
+    .borderImg{
+        border: 2px dashed #fff;
+    }
+
+
+
+
+    .Morado{
+        width: 550px;
+            height: 300px;
+            text-align:center;
+        border: 2px dashed #9999ff;
+ 
+}
+
+.Gris{
+    width: 550px;
+            height: 300px;
+            text-align:center;
+    border: 2px dashed #999494;
+  
+}
+
 </style>
-
-
-
 
 
 
@@ -98,3 +90,4 @@
 </style>
 
 -->
+

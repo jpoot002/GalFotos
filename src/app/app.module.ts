@@ -10,9 +10,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// angularmaterial
-import { AppMaterialAngularModule } from '../app/materialangular.module';
-
 //Component
 import { ImagenesComponent } from './components/imagenes/imagenes.component';
 import { CargaComponent } from './components/carga/carga.component';
@@ -35,7 +32,6 @@ import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-direct
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppMaterialAngularModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features

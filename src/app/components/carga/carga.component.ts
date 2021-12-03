@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileArchivo } from '../../modelos/archivoimagen';
 import { ImagenesService } from '../../services/imagene/imagenes.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-carga',
@@ -9,17 +9,18 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./carga.component.css']
 })
 export class CargaComponent implements OnInit {
-  ngOnInit() {
-  }
-  
-  ImagenElemento = true;
-  fileArchivo: FileArchivo[] = [];
-
   constructor( public ImagenesService: ImagenesService ) { }
 
-  CargarImagenes() {
-    this.ImagenesService.CargarImagenesFirebase( this.fileArchivo );
-    console.log( this.fileArchivo );
+  ImagenElemento = false;
+  fileArchivo: FileArchivo[] = [];
+
+
+  ngOnInit() {
+
+  }
+ 
+  CargarGuardadoImagenes() {
+   this.ImagenesService.CargarGuardadoImagenesFirebase( this.fileArchivo );
   }
 
   LimpiarImagenes() {
@@ -27,9 +28,10 @@ export class CargaComponent implements OnInit {
   }
 
 
-
   
-    
 }
+  
 
+
+const ELEMENT_DATA: any[] = [];
 

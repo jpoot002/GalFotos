@@ -424,6 +424,11 @@
         "tslib": "^2.0.0"
       }
     },
+    "@angular/fire": {
+      "version": "5.4.2",
+      "resolved": "https://registry.npmjs.org/@angular/fire/-/fire-5.4.2.tgz",
+      "integrity": "sha512-QzB5d1wtqr9jxfsVNv2+569MlfK4/QrrpNy0IngOHdxS4FBbXqMOcx37iv1m2mzJv9zlGUddUX44IZP5Xfb3cw=="
+    },
     "@angular/forms": {
       "version": "10.0.14",
       "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-10.0.14.tgz",
@@ -432,6 +437,7 @@
         "tslib": "^2.0.0"
       }
     },
+
     "@angular/platform-browser": {
       "version": "10.0.14",
       "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-10.0.14.tgz",
@@ -2474,13 +2480,6 @@
       "integrity": "sha512-7brktOHPObHgMnCN+QkakyCBr2mnxMxMSVLlEZ7OF70LjFIQz/RV3t5a7cH1SjystbY+kzR3qYvn/irlWs27/Q==",
       "requires": {
         "@angular/fire": "5.4.2"
-      },
-      "dependencies": {
-        "@angular/fire": {
-          "version": "5.4.2",
-          "resolved": "https://registry.npmjs.org/@angular/fire/-/fire-5.4.2.tgz",
-          "integrity": "sha512-QzB5d1wtqr9jxfsVNv2+569MlfK4/QrrpNy0IngOHdxS4FBbXqMOcx37iv1m2mzJv9zlGUddUX44IZP5Xfb3cw=="
-        }
       }
     },
     "ansi-colors": {

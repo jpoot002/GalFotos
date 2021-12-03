@@ -6,7 +6,7 @@ import { CargaComponent } from './components/carga/carga.component';
 const routes: Routes = [
   { path: 'Inico', component: ImagenesComponent },
     { path: 'Carga', component: CargaComponent },
-    { path: '**', pathMatch: 'full', redirectTo: 'fotos' }
+    { path: '**', pathMatch: 'full', redirectTo: 'Inico' }
 ];
 
 @NgModule({

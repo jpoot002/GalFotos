@@ -6,9 +6,9 @@ import { FileArchivo } from '../modelos/archivoimagen';
 })
 export class NgDropFilesDirectiveDirective {
 
-  @Input() fileArchivo: FileArchivo[] = [];
+  @Input() fileArchivoInput: FileArchivo[] = [];
   @Output() mouseSobre: EventEmitter<boolean> = new EventEmitter();
-
+  @Input() Cambio = false;
   constructor() { }
 
   @HostListener('dragover', ['$event'])
@@ -41,14 +41,12 @@ export class NgDropFilesDirectiveDirective {
   }
 
   private _extraerArchivos(archivosLista: FileList) {
-    // console.log( archivosLista );
-    // tslint:disable-next-line:forin
     for (const propiedad in Object.getOwnPropertyNames(archivosLista)) {
       const archivoTemporal = archivosLista[propiedad];
 
       if (this._ArchivoCargado(archivoTemporal)) {
-        const nuevoArchivo = new FileArchivo(archivoTemporal);
-        this.fileArchivo.push(nuevoArchivo);
+        const TempArchivo = new FileArchivo(archivoTemporal);
+        this.fileArchivoInput.push(TempArchivo);
 
       }
     }
@@ -57,13 +55,10 @@ export class NgDropFilesDirectiveDirective {
   // Validar carga 
   private _ArchivoCargado(archivo: File): boolean {
     if (!this._DuplicarArchivo(archivo.name) && this._SoloImagen(archivo.type)) {
-      console.log(archivo);
       return true;
     } else {
-      console.log(archivo);
       return false;
     }
-
   }
 
   //prevenir que el navegador abra el archivo
@@ -74,9 +69,9 @@ export class NgDropFilesDirectiveDirective {
 
   //prevenir achivos doblicados   
   private _DuplicarArchivo(nombreArchivo: string): boolean {
-    for (const archivo of this.fileArchivo) {
+    for (const archivo of this.fileArchivoInput) {
       if (archivo.nombreArchivo === nombreArchivo) {
-        console.log('El archivo ' + nombreArchivo + ' ya esta agregado');
+      
         return true;
       }
     }

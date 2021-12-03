@@ -1,93 +1,92 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile style="border: 2px dashed #9999ff;">
-        <div>
-            <h2>Seleccione archivos</h2>
-            <div appNgDropFilesDirective  [fileArchivo]= "fileArchivo"
-                (mouseSobre)="ImagenElemento = $event" [ngClass]="{'Morado': ImagenElemento, 'Gris': !ImagenElemento}">
-                
-                <h4>Deje caer aquí los archivos</h4>
-                <img mat-card-image src="../../../assets/imagenes/tipos-de-archivos-de-imagen.png" alt="Photo" style=" 
-                    width: 500px;
-                    height:250px;
-                    margin:0px auto;
-                            ">
-            </div>
+<div class="row">
+
+    <div class="col-md-4">
+
+        <h3>Seleccione archivos</h3>
+
+        <div appNgDropFilesDirective  [fileArchivoInput]= "fileArchivo"  
+        (mouseSobre)="ImagenElemento = $event" 
+         [ngClass]="{'Morado': ImagenElemento, 'Gris': !ImagenElemento}" >
+            <h4>Deje caer aquí los archivos</h4>
+            <img src="../../../assets/imagenes/tipos-de-archivos-de-imagen.png" style="
+            width: 300px;
+            height: 250px;
+        ">
         </div>
-    </mat-grid-tile>
-    <mat-grid-tile style="border: 2px dashed #9999ff;">
-        <div class="grid-container">
-            <div>
-                <h2>Cargar archivos</h2>
-                <button mat-raised-button color="primary" (click)="CargarImagenes()"  [disabled]="fileArchivo.length === 0">Cargar</button>
-                <button mat-raised-button color="warn" (click)="LimpiarImagenes()" >Limpiar</button>
 
-            </div>
-            <div>
-               
-            </div>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
+    </div>
 
 
+    <div class="col-md-8">
+
+        <h4>Cargar archivos</h4>
+        
+        <button (click)="CargarGuardadoImagenes()" [disabled]="fileArchivo.length === 0" class="btn btn-success">Cargar a Firebase</button>
+        <button (click)="LimpiarImagenes()" [disabled]="fileArchivo.length === 0"  class="btn btn-danger">Limpiar</button>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre archivo</th>
+                    <th>Tamaño</th>
+                    <th>Progreso</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let archivo of fileArchivo"  [ngClass]="{'text-primary': archivo.progreso >= 99}" >
+                    <td>
+                   {{ archivo.nombreArchivo }}
+                    </td>
+                    <td>
+                        {{ archivo.archivo.size / 1024 /1024 | number: '.2-2' }} MB
+                        
+                    </td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': archivo.progreso + '%' }"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+
+</div>
 
 
 <style>
-    .grid-container {
-        display: grid;
-        grid-template-areas:
-            'main'
-            'footer';
-    }
-
-    .borderImg{
-        border: 2px dashed #fff;
-    }
-
-
-
-
-    .Morado{
-        width: 550px;
-            height: 300px;
-            text-align:center;
-        border: 2px dashed #9999ff;
+   
+.Morado{
+    width: 400px;
+    height: 300px;
+    text-align:center;
+    border: 2px dashed #9999ff;
  
 }
 
 .Gris{
-    width: 550px;
-            height: 300px;
-            text-align:center;
+    width: 400px;
+    height: 300px;
+    text-align:center;
     border: 2px dashed #999494;
   
 }
 
-</style>
-
-
-
-
-
-  
-
-
-<!--
-<style>
-    .mat-figure-personal {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+.TableAzul{
+    
+    color: #0683ff;
 }
+
+.TableNegro {
+    
+    color: #0d0d0d;
+}
+
 </style>
-
--->
-

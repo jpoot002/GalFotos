@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ImagenesService } from '../../services/imagene/imagenes.service';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { map } from 'rxjs/operators';
 import { Imagen}  from '../../modelos/imagen'
 
 @Component({
@@ -9,31 +7,31 @@ import { Imagen}  from '../../modelos/imagen'
   templateUrl: './imagenes.component.html',
   styleUrls: ['./imagenes.component.css']
 })
-export class ImagenesComponent implements OnInit {
+export class ImagenesComponent {
 
-  Nombre:string
-  Id:number
   items:Imagen;
-  constructor(public ImagenesService: ImagenesService,
-              public afs: AngularFirestore
+  nombre: string;
+  url: string;
+  idarchivo: number; 
+  fecha : Date;
+
+  constructor(public ImagenesService: ImagenesService
     ) {
-    this.ImagenesService.listaImagenes().subscribe(item=>{
-      console.log(item);
+      this.ImagenesService.listaImagenes().subscribe(item=>{
         this.items = item;
       })
     
   }
 
-  Modaldato(nombre:string, id:number){
-    this.Nombre = nombre,
-    this.Id = id
+  Modaldato(item:Imagen){
+    this.nombre = item.nombre;
+    this.url=item.url;
+    this.idarchivo= item.idarchivo;
   }
 
-  Eliminar(nombre:string, id:number){
-    this.ImagenesService.Eliminar(nombre,id);
+  Eliminar(){
+    this.ImagenesService.Eliminar(this.nombre,this.idarchivo);
   }
   elemento: any;
-  ngOnInit() {
-  }
 
 }

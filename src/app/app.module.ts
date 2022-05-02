@@ -19,20 +19,22 @@ import { AppComponent } from './app.component';
 import { ImagenesService } from './services/imagene/imagenes.service';
 
 //directives
-import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-directive.directive'
+import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-directive.directive';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ImagenesComponent,
     CargaComponent,
-    NgDropFilesDirectiveDirective
+    NgDropFilesDirectiveDirective,
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule,

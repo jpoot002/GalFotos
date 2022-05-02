@@ -1,92 +1,74 @@
-<div class="row">
-
+<div class="row" 
+style="
+    margin-top: 35px;
+">
     <div class="col-md-4">
-
-        <h3>Seleccione archivos</h3>
-
-        <div appNgDropFilesDirective  [fileArchivoInput]= "fileArchivo"  
-        (mouseSobre)="ImagenElemento = $event" 
-         [ngClass]="{'Morado': ImagenElemento, 'Gris': !ImagenElemento}" >
-            <h4>Deje caer aquí los archivos</h4>
-            <img src="../../../assets/imagenes/tipos-de-archivos-de-imagen.png" style="
-            width: 300px;
-            height: 250px;
-        ">
+        <div appNgDropFilesDirective  [fileArchivoInput]= "fileArchivo" (mouseSobre)="ImagenElemento = $event" 
+        [ngClass]="{'colorbordehover': ImagenElemento, 'colorborde': !ImagenElemento}">
+            <h4> Deje caer aquí los archivos </h4>
+            <img class="imagencarga" src="../../../assets/imagenes/tipos-de-archivos-de-imagen.png" >
         </div>
+        <br>
+        <div class="divbotons"
+        style="
+    margin-left: 10%;
+">
+            <button class="btn btn-success botonmarginright" (click)="CargarGuardadoImagenes()" [disabled]="fileArchivo.length === 0"> Cargar a Firebase </button>
+            <button class="btn btn-danger" (click)="LimpiarImagenes()" [disabled]="fileArchivo.length === 0"> Limpiar </button>
+        </div>
+    </div>
 
+    <div class="col-md-8">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <div class="container" >
+                <div class="row" *ngFor="let archivo of fileArchivo; index as i" >
+
+                    <div class="row" >
+                        <div class="col-3"> <img  [src]="archivo.temurl" class="rounded mb-3" width="170"> </div>
+
+                        <div class="col "> 
+                            <h6> {{archivo.nombreArchivo }} </h6> 
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': archivo.progreso + '%' }"></div>
+                            </div>
+                           
+                        <div class="row " style="
+                        margin-bottom: 12px;
+                        margin-top: 12px;
+                    ">
+                            <div class="col"> Tamaño: {{ archivo.archivo.size / 1024 /1024 | number: '.2-2' }} MB   </div>
+                            <div class="col">
+                                <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close" (click)="EliminarUno(i)"
+                                style="
+    margin-left: 90%;"
+></button>
+                            </div>
+                            
+                        </div>                     
+                       
+
+                       
+
+                        
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
     </div>
 
 
-    <div class="col-md-8">
+<!--
 
-        <h4>Cargar archivos</h4>
-        
-        <button (click)="CargarGuardadoImagenes()" [disabled]="fileArchivo.length === 0" class="btn btn-success">Cargar a Firebase</button>
-        <button (click)="LimpiarImagenes()" [disabled]="fileArchivo.length === 0"  class="btn btn-danger">Limpiar</button>
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nombre archivo</th>
-                    <th>Tamaño</th>
-                    <th>Progreso</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let archivo of fileArchivo"  [ngClass]="{'text-primary': archivo.progreso >= 99}" >
-                    <td>
-                   {{ archivo.nombreArchivo }}
-                    </td>
-                    <td>
-                        {{ archivo.archivo.size / 1024 /1024 | number: '.2-2' }} MB
-                        
-                    </td>
-                    <td>
+<div class="col "> <img  [src]="archivo.temurl" class="rounded mb-3" width="170"> </div>
+                    <div class="col "> <p class="text-center"> {{ archivo.nombreArchivo }} </p> </div>
+                    <div class="col "><button (click)="EliminarUno(i)">Eli {{i}} </button></div>
+                    <div class="col "> {{ archivo.archivo.size / 1024 /1024 | number: '.2-2' }} MB  </div>
+                    <div class="col ">
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': archivo.progreso + '%' }"></div>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
+                    </div>
 
-
-        </table>
-
-
-    </div>
-
-
-
-</div>
-
-
-<style>
-   
-.Morado{
-    width: 400px;
-    height: 300px;
-    text-align:center;
-    border: 2px dashed #9999ff;
- 
-}
-
-.Gris{
-    width: 400px;
-    height: 300px;
-    text-align:center;
-    border: 2px dashed #999494;
-  
-}
-
-.TableAzul{
-    
-    color: #0683ff;
-}
-
-.TableNegro {
-    
-    color: #0d0d0d;
-}
-
-</style>
+                    -->

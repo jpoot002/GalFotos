@@ -1,12 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Fotos</a>
+  <a class="navbar-brand" href="#">
+    <img src="../assets/imagenes/ilustracion-icono-galeria_53876-27002.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Fotos</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
           <li class="nav-item" routerLinkActive="active" type="button">
-              <a class="nav-link" (click)="Carga()">Cargar fotos</a>
+              <a class="nav-link" (click)="Carga()">Cargar</a>
           </li>
 
       </ul>
@@ -14,7 +16,8 @@
 </nav>
 
 
-<div class="container main-container">
+<div class="container main-container" style="
+margin-top: 20px;
+">
   <router-outlet></router-outlet>
 </div>
-

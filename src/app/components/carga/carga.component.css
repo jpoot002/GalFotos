@@ -1,0 +1,37 @@
+.colorbordehover{
+    width: 380px;
+    height: 320px;
+    text-align:center;
+    border: 4px dashed #9999ff;
+}
+
+.colorborde{
+    width: 380px;
+    height: 320px;
+    text-align:center;
+    border: 3px dashed #999494;
+}
+
+.imagencarga{
+    width: 300px;
+    height: 250px;
+}
+
+.botonmarginright{
+    margin-right: 20%;
+}
+.my-custom-scrollbar {             
+    position: relative;
+    height: 500px;
+    overflow: auto;
+    width: 100%;
+
+}
+
+.table-wrapper-scroll-y { 
+    display: block;
+}
+
+
+
+

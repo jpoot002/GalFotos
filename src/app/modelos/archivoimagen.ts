@@ -7,15 +7,16 @@ export class FileArchivo {
     public url: string;
     public estaSubiendo: boolean;
     public progreso: number;
+    public temurl:string;
 
-    constructor( archivo: File ) {
+    constructor( archivo: File, temurl:string ) {
         this.idarchivo =  (  ((Number(new Date())) + (Number(new Date().getHours()))+ (Number(new Date().getMinutes())) + (Number(new Date().getSeconds())) + (Number(new Date().getMilliseconds())))*  (Math.ceil(Math.random()*31))); 
         this.archivo = archivo;
         this.nombreArchivo = archivo.name;
         this.estaSubiendo = false;
         this.progreso = 0;
         this.fecha  = new Date();
-
+        this.temurl= temurl;
     }
 
    

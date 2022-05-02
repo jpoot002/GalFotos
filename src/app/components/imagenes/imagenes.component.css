@@ -1,0 +1,14 @@
+.card-columns {
+    column-count: 5;
+}
+.imagen:hover {
+    cursor: pointer;
+    -webkit-transform:scale(1);
+    transform:scale(0.99);
+}
+  
+.imagen {
+    max-height: 15em;
+}
+
+

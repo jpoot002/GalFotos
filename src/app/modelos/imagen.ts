@@ -1,5 +1,5 @@
 export interface Imagen {
-    nombre: number;
+    nombre: string;
     url: string;
     idarchivo: number; 
     fecha : Date;

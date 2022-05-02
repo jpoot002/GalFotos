@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as firebase from "firebase";
 import { FileArchivo } from '../../modelos/archivoimagen';
 import { Imagen}  from '../../modelos/imagen'
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,16 @@ export class ImagenesService {
   private CARPETA_IMAGENES = 'img';
   imagen: Imagen[] = [];
   items: Observable<Imagen[]>;
+  FocoGuardadoCompleto: number = 0;
 
   private itemsCollection: AngularFirestoreCollection<Imagen>;
 
-  constructor( private AngularFirestore: AngularFirestore ) { 
+  constructor( private AngularFirestore: AngularFirestore) { 
     this.CargaImagenes();
   }
+
+  private customSubject = new Subject<any>();
+  customObservable = this.customSubject.asObservable();
 
   private CargaImagenes(){
     this.itemsCollection =  this.AngularFirestore.collection<Imagen>('img');
@@ -41,7 +45,6 @@ export class ImagenesService {
       if ( item.progreso >= 100 ) {
         continue;
       }
-
       const uploadTask: firebase.storage.UploadTask =
                   storageRef.child(`${ this.CARPETA_IMAGENES }/${ item.nombreArchivo }`)
                             .put( item.archivo );
@@ -53,18 +56,16 @@ export class ImagenesService {
                                   .then((url) => {
                                     item.url = url;
                                     item.estaSubiendo = false;
-                                
+                                    this.FocoGuardadoCompleto = this.FocoGuardadoCompleto + 1;
                                     this.GuardarImagenFirebase({
                                       nombre: item.nombreArchivo,
                                       url: item.url,
                                       fecha: item.fecha
-                                      
-                                  });
+                                  });  
+                                  this.FinalizarGuardado(this.FocoGuardadoCompleto, imagenes.length);                             
                                 });
-                       
-                              }
+                              }                            
                             );
-
     }
 
   }
@@ -93,8 +94,7 @@ export class ImagenesService {
     })
   }
 
-  ngOnInit() {
-  }
+
 
   public listaImagenes():any{
     return this.items;
@@ -104,5 +104,13 @@ export class ImagenesService {
     this.EliminarFirestore(nombre,id);
     this.EliminiarStorage(nombre,id);
   }
+
+  public FinalizarGuardado(Conteo:number, Length:number) {
+      if(Conteo==Length){
+        this.customSubject.next("guardado finalizado");
+      }
+  }
+
+
 
 }

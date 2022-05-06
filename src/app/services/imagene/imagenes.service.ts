@@ -13,7 +13,6 @@ import { Subject } from 'rxjs';
 })
 export class ImagenesService {
   
-  private CARPETA_IMAGENES:string = 'img';
 
   ObservableAlbun: Observable<Albun[]>;
   
@@ -24,15 +23,13 @@ export class ImagenesService {
 
 
   constructor( private AngularFirestore: AngularFirestore) { 
-    this.CargaImagenes();
-    this.CargarAlbun();
   }
 
   private customSubject = new Subject<any>();
   customObservable = this.customSubject.asObservable();
 
-  private CargaImagenes(){
-    this.itemsCollection =  this.AngularFirestore.collection<Imagen>(this.CARPETA_IMAGENES);
+  private CargaImagenes( NombreAlbun:string ){
+    this.itemsCollection =  this.AngularFirestore.collection<Imagen>(NombreAlbun);
     this.ObservableImagen = this.itemsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Imagen;
@@ -42,31 +39,31 @@ export class ImagenesService {
     );
   }
 
-  public CargarGuardadoImagenesFirebase( imagenes: FileArchivo[] ) {
+  public CargarGuardadoImagenesFirebase( imagenes: FileArchivo[], NombreAlbun:string  ) {
     const storageRef = firebase.storage().ref();
-    for ( const item of imagenes ) {
+    for ( const Imagen of imagenes ) {
 
-      item.estaSubiendo = true;
-      if ( item.progreso >= 100 ) {
+      Imagen.estaSubiendo = true;
+      if ( Imagen.progreso >= 100 ) {
         continue;
       }
       const uploadTask: firebase.storage.UploadTask =
-                  storageRef.child(`${ this.CARPETA_IMAGENES }/${ item.nombreArchivo }`)
-                            .put( item.archivo );
+                  storageRef.child(`${ NombreAlbun }/${ Imagen.nombreArchivo }`)
+                            .put( Imagen.archivo );
                             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-                              (snapshot: firebase.storage.UploadTaskSnapshot) => item.progreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+                              (snapshot: firebase.storage.UploadTaskSnapshot) => Imagen.progreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
                               (error) => console.error('Error al subir', error),
                               () => {                       
                                 uploadTask.snapshot.ref.getDownloadURL()
                                   .then((url) => {
-                                    item.url = url;
-                                    item.estaSubiendo = false;
+                                    Imagen.url = url;
+                                    Imagen.estaSubiendo = false;
                                     this.FocoGuardadoCompleto = this.FocoGuardadoCompleto + 1;
                                     this.GuardarImagenFirebase({
-                                      nombre: item.nombreArchivo,
-                                      url: item.url,
-                                      fecha: item.fecha
-                                  });  
+                                      nombre: Imagen.nombreArchivo,
+                                      url: Imagen.url,
+                                      fecha: Imagen.fecha
+                                  },NombreAlbun);  
                                   this.FinalizarGuardado(this.FocoGuardadoCompleto, imagenes.length);                             
                                 });
                               }                            
@@ -76,26 +73,26 @@ export class ImagenesService {
   }
 
 
-  private GuardarImagenFirebase( imagen: { nombre: string, url: string,  fecha:Date } ) {
+  private GuardarImagenFirebase( imagen: { nombre: string, url: string,  fecha:Date } , NombreAlbun:string ) {
 
-    this.AngularFirestore.collection(`/${ this.CARPETA_IMAGENES }` )
+    this.AngularFirestore.collection(`/${ NombreAlbun }` )
     .add( Object.assign({}, imagen));
   }
 
-  private EliminarFirestore(nombre:string, id:number){
-    this.AngularFirestore.collection<Imagen>(this.CARPETA_IMAGENES).doc(String(id)).delete().then(()=> {
-      console.log(nombre, 'Borrada de la base de datos');
+  private EliminarFirestore(Nombre:string, Id:number, NombreAlbun:string ){
+    this.AngularFirestore.collection<Imagen>(NombreAlbun).doc(String(Id)).delete().then(()=> {
+      console.log(Nombre, 'Borrada de la base de datos');
     }).catch(function(error) {
-      console.error('Error al eliminar ', nombre);
+      console.error('Error al eliminar ', Nombre);
     })
   }
   
-  private EliminiarStorage(nombre:string, id:number){
+  private EliminiarStorage(Nombre:string, Id:number, NombreAlbun:string ){
     const storageRef = firebase.storage().ref();
-    storageRef.child(`${ this.CARPETA_IMAGENES }/${ nombre }`).delete().then(()=> {
-      console.log(nombre, 'Borrada de la base de datos');
+    storageRef.child(`${ NombreAlbun}/${ Nombre }`).delete().then(()=> {
+      console.log(Nombre, 'Borrada de la base de datos');
     }).catch(function(error) {
-      console.error('Error al eliminar ', nombre);
+      console.error('Error al eliminar ', Nombre);
     })
   }
 
@@ -111,17 +108,18 @@ export class ImagenesService {
   }
 
   public ListaAlbunes():any{
-    console.log(this.ObservableAlbun);
+    this.CargarAlbun();
     return this.ObservableAlbun
   }
   
-  public ListaImagenes():any{
+  public ListaImagenes( NombreAlbun:string  ):any{
+    this.CargaImagenes(NombreAlbun);
     return this.ObservableImagen;
   }
   
-  public Eliminar(nombre:string, id:number){
-    this.EliminarFirestore(nombre,id);
-    this.EliminiarStorage(nombre,id);
+  public Eliminar(Nombre:string, Id:number, NombreAlbun:string ){
+    this.EliminarFirestore(Nombre,Id, NombreAlbun);
+    this.EliminiarStorage(Nombre,Id, NombreAlbun);
   }
 
   public FinalizarGuardado(Conteo:number, Length:number) {
@@ -130,8 +128,6 @@ export class ImagenesService {
       }
   }
 
-  public NombreAlbun( NombreAlbun:string){
-    this.CARPETA_IMAGENES = NombreAlbun;
-  }
+ 
 
 }

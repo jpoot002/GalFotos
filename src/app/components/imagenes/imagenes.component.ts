@@ -7,18 +7,23 @@ import { Imagen}  from '../../modelos/imagen'
   templateUrl: './imagenes.component.html',
   styleUrls: ['./imagenes.component.css']
 })
-export class ImagenesComponent {
+export class ImagenesComponent  implements OnInit{
 
   Imagenes:Imagen;
   Nombre: string;
   Url: string;
   Idarchivo: number; 
 
+  
   constructor(public ImagenesService: ImagenesService
     ) {
       this.ImagenesService.ListaImagenes().subscribe(item=>{
       this.Imagenes = item;
     })
+  }
+
+  ngOnInit() {
+    this.ImagenesService.NombreAlbun("Favoritas");
   }
 
   Modaldato(item:Imagen){

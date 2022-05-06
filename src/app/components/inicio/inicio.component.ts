@@ -13,11 +13,12 @@ export class InicioComponent implements OnInit {
   Albun:any;
 
   constructor(public ImagenesService: ImagenesService) {
-    this.ImagenesService.ListaImagenes().subscribe(imagenes=>{
-      this.Imagenes = imagenes;
-    })
+    this.ImagenesService.ListaImagenes("Favoritas").subscribe(imagenes=>{
+    this.Imagenes = imagenes;
+  })
   }
 
   ngOnInit(): void {
+   
   }
 }

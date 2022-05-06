@@ -9,29 +9,27 @@ import { Imagen}  from '../../modelos/imagen'
 })
 export class ImagenesComponent {
 
-  items:Imagen;
-  nombre: string;
-  url: string;
-  idarchivo: number; 
-  fecha : Date;
+  Imagenes:Imagen;
+  Nombre: string;
+  Url: string;
+  Idarchivo: number; 
 
   constructor(public ImagenesService: ImagenesService
     ) {
-      this.ImagenesService.listaImagenes().subscribe(item=>{
-        this.items = item;
-      })
-    
+      this.ImagenesService.ListaImagenes().subscribe(item=>{
+      this.Imagenes = item;
+    })
   }
 
   Modaldato(item:Imagen){
-    this.nombre = item.nombre;
-    this.url=item.url;
-    this.idarchivo= item.idarchivo;
+    this.Nombre = item.nombre;
+    this.Url=item.url;
+    this.Idarchivo= item.idarchivo;
   }
 
   Eliminar(){
-    this.ImagenesService.Eliminar(this.nombre,this.idarchivo);
+    this.ImagenesService.Eliminar(this.Nombre,this.Idarchivo);
   }
-  elemento: any;
+ 
 
 }

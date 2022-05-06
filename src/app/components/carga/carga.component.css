@@ -32,6 +32,20 @@
     display: block;
 }
 
+.divbotons{
+    margin-left: 10%;
+}
 
+.rowbotons{
+    margin-bottom: 12px;
+    margin-top: 12px;   
+}
 
-
+.dropdownPersonal{
+    margin-bottom: 10px;
+    padding-left: 23%;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 178px;
+    height: 39px;
+}

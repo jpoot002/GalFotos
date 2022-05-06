@@ -20,8 +20,7 @@ import { ImagenesService } from './services/imagene/imagenes.service';
 
 //directives
 import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-directive.directive';
-
-
+import { InicioComponent } from './components/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-direct
     ImagenesComponent,
     CargaComponent,
     NgDropFilesDirectiveDirective,
-
-
+    InicioComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,7 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, } from '@angular/core';
 import { FileArchivo } from '../../modelos/archivoimagen';
+import { Albun }  from '../../modelos/albun'
 import { ImagenesService } from '../../services/imagene/imagenes.service';
-
 
 @Component({
   selector: 'app-carga',
@@ -12,20 +11,23 @@ import { ImagenesService } from '../../services/imagene/imagenes.service';
 export class CargaComponent implements OnInit {
   constructor( public ImagenesService: ImagenesService) { }
 
-  ImagenElemento = false;
-  fileArchivo: FileArchivo[] = [];
-  color: string;
-  mensaje: string;
-  show:string;
-
-  
+  public ImagenElemento:boolean = false;
+  public FileArchivo: FileArchivo[] = [];
+  public Color: string;
+  public Mensaje: string;
+  public Show:string;
+  public Albunes:Albun;
+  public NombreAlbun:string 
 
   ngOnInit() {
     this.ImagenesService.customObservable.subscribe((res) => {
       this.AlertFinalCarga(res);
     });
-
-    this.show = "true";
+    this.ImagenesService.ListaAlbunes().subscribe(albunes=>{
+      this.Albunes = albunes;
+    })
+    this.Show = "true";
+    this.NombreAlbun = "Seleciona un albun"
   }
 
   public AlertFinalCarga(res: any) {
@@ -34,17 +36,23 @@ export class CargaComponent implements OnInit {
   }
 
   CargarGuardadoImagenes() {
-   this.ImagenesService.CargarGuardadoImagenesFirebase( this.fileArchivo );
+    this.ImagenesService.NombreAlbun(this.NombreAlbun );
+    this.ImagenesService.CargarGuardadoImagenesFirebase( this.FileArchivo);
   }
 
   public LimpiarImagenes() {
-    this.fileArchivo = [];
+    this.FileArchivo = [];
   }
 
   public EliminarUno(Idimagen:number){
-    this.fileArchivo.splice(Idimagen,1);
+    this.FileArchivo.splice(Idimagen,1);
   }
 
+  public TextoAlbun(Texto:string){
+    this.NombreAlbun = Texto;
+  }
+
+  
 }
   
 

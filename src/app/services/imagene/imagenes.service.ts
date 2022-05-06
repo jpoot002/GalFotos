@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import * as firebase from "firebase";
 import { FileArchivo } from '../../modelos/archivoimagen';
 import { Imagen}  from '../../modelos/imagen'
+import { Albun }  from '../../modelos/albun'
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
@@ -12,23 +13,27 @@ import { Subject } from 'rxjs';
 })
 export class ImagenesService {
   
-  private CARPETA_IMAGENES = 'img';
-  imagen: Imagen[] = [];
-  items: Observable<Imagen[]>;
+  private CARPETA_IMAGENES:string = 'img';
+
+  ObservableAlbun: Observable<Albun[]>;
+  
+  ObservableImagen: Observable<Imagen[]>;
   FocoGuardadoCompleto: number = 0;
 
-  private itemsCollection: AngularFirestoreCollection<Imagen>;
+  private itemsCollection: AngularFirestoreCollection<any>;
+
 
   constructor( private AngularFirestore: AngularFirestore) { 
     this.CargaImagenes();
+    this.CargarAlbun();
   }
 
   private customSubject = new Subject<any>();
   customObservable = this.customSubject.asObservable();
 
   private CargaImagenes(){
-    this.itemsCollection =  this.AngularFirestore.collection<Imagen>('img');
-    this.items = this.itemsCollection.snapshotChanges().pipe(
+    this.itemsCollection =  this.AngularFirestore.collection<Imagen>(this.CARPETA_IMAGENES);
+    this.ObservableImagen = this.itemsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Imagen;
         const idarchivo = a.payload.doc.id;
@@ -79,7 +84,7 @@ export class ImagenesService {
 
   private EliminarFirestore(nombre:string, id:number){
     this.AngularFirestore.collection<Imagen>(this.CARPETA_IMAGENES).doc(String(id)).delete().then(()=> {
-      console.log(nombre, ' borrada de la base de datos');
+      console.log(nombre, 'Borrada de la base de datos');
     }).catch(function(error) {
       console.error('Error al eliminar ', nombre);
     })
@@ -88,16 +93,30 @@ export class ImagenesService {
   private EliminiarStorage(nombre:string, id:number){
     const storageRef = firebase.storage().ref();
     storageRef.child(`${ this.CARPETA_IMAGENES }/${ nombre }`).delete().then(()=> {
-      console.log(nombre, ' borrada de la base de datos');
+      console.log(nombre, 'Borrada de la base de datos');
     }).catch(function(error) {
       console.error('Error al eliminar ', nombre);
     })
   }
 
+  private CargarAlbun(){
+    this.itemsCollection =  this.AngularFirestore.collection<Albun>("NombreAlbum");
+    this.ObservableAlbun =  this.itemsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Albun;
+        const idarchivo = a.payload.doc.id;
+        return { idarchivo, ...data };
+      }))
+    );
+  }
 
-
-  public listaImagenes():any{
-    return this.items;
+  public ListaAlbunes():any{
+    console.log(this.ObservableAlbun);
+    return this.ObservableAlbun
+  }
+  
+  public ListaImagenes():any{
+    return this.ObservableImagen;
   }
   
   public Eliminar(nombre:string, id:number){
@@ -111,6 +130,8 @@ export class ImagenesService {
       }
   }
 
-
+  public NombreAlbun( NombreAlbun:string){
+    this.CARPETA_IMAGENES = NombreAlbun;
+  }
 
 }

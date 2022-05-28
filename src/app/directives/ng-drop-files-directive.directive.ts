@@ -1,6 +1,6 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { FileArchivo } from '../modelos/archivoimagen';
+import { FileArchivo } from '../modelos/FileArchivo';
 
 @Directive({
   selector: '[appNgDropFilesDirective]'

@@ -144,31 +144,30 @@
         width: 80%;
     }
     
-    .img-move-1 {
+    .img-move-0 {
         left: 0;
     }
     
-    .img-move-2 {
+    .img-move-1 {
         right: 0;
         bottom: 0;
         left: 7%;
         top: 7%;
     }
     
-    .img-move-3 {
+    .img-move-2 {
         right: 0;
         bottom: 0;
         left: 14%;
         top: 14%;
     }
     
-    .img-move-4 {
+    .img-move-3 {
         right: 0;
         bottom: 0;
         left: 21%;
         top: 21%;
-    }
-    
+    }  
 }
   
 

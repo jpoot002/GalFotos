@@ -1,4 +1,4 @@
-export class Albunes {
+export class ArchivoImagenAlbun {
 
     public idarchivo: number;
     public fecha : Date;

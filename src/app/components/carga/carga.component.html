@@ -6,7 +6,7 @@
                     {{NombreAlbun}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                    <a class="dropdown-item" (click)="TextoAlbun('Seleciona un albun')">Seleciona un albun</a>
+                    <a class="dropdown-item" (click)="TextoAlbun('Seleciona un albun')">Seleciona un album</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" (click)="TextoAlbun(archivo.Nombre)" *ngFor="let archivo of Albunes">{{archivo.Nombre}}</a>
                 </div>

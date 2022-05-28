@@ -13,17 +13,17 @@ export class ImagenesComponent  implements OnInit{
   Nombre: string;
   Url: string;
   Idarchivo: number; 
-
+  public NombreAlbun:string 
   
   constructor(public ImagenesService: ImagenesService
     ) {
-      this.ImagenesService.ListaImagenes().subscribe(item=>{
+      this.ImagenesService.ListaImagenes("img").subscribe(item=>{
       this.Imagenes = item;
     })
   }
 
   ngOnInit() {
-    this.ImagenesService.NombreAlbun("Favoritas");
+    
   }
 
   Modaldato(item:Imagen){
@@ -33,7 +33,7 @@ export class ImagenesComponent  implements OnInit{
   }
 
   Eliminar(){
-    this.ImagenesService.Eliminar(this.Nombre,this.Idarchivo);
+    this.ImagenesService.Eliminar(this.Nombre,this.Idarchivo,"img");
   }
  
 

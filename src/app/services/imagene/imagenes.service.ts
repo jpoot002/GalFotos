@@ -1,7 +1,8 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable  } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as firebase from "firebase";
-import { FileArchivo } from '../../modelos/archivoimagen';
+import * as  limit from "firebase";
+import { FileArchivo } from '../../modelos/FileArchivo';
 import { Imagen}  from '../../modelos/imagen'
 import { Albun }  from '../../modelos/albun'
 import { map } from 'rxjs/operators';
@@ -28,6 +29,7 @@ export class ImagenesService {
   private customSubject = new Subject<any>();
   customObservable = this.customSubject.asObservable();
 
+
   private CargaImagenes( NombreAlbun:string ){
     this.itemsCollection =  this.AngularFirestore.collection<Imagen>(NombreAlbun);
     this.ObservableImagen = this.itemsCollection.snapshotChanges().pipe(
@@ -39,7 +41,18 @@ export class ImagenesService {
     );
   }
 
+  private CargalimitImagenes( NombreAlbun:string, Limite:number){
+    this.itemsCollection =  this.AngularFirestore.collection<Imagen>(NombreAlbun, ref => ref.limit(Limite))
+    this.ObservableImagen = this.itemsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Imagen;
+        const idarchivo = a.payload.doc.id;
+        return { idarchivo, ...data };
+      }))
+    );
+  }
   public CargarGuardadoImagenesFirebase( imagenes: FileArchivo[], NombreAlbun:string  ) {
+
     const storageRef = firebase.storage().ref();
     for ( const Imagen of imagenes ) {
 
@@ -48,7 +61,7 @@ export class ImagenesService {
         continue;
       }
       const uploadTask: firebase.storage.UploadTask =
-                  storageRef.child(`${ NombreAlbun }/${ Imagen.nombreArchivo }`)
+                  storageRef.child(`${ 'img' }/${ Imagen.nombreArchivo }`)
                             .put( Imagen.archivo );
                             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
                               (snapshot: firebase.storage.UploadTaskSnapshot) => Imagen.progreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
@@ -128,6 +141,9 @@ export class ImagenesService {
       }
   }
 
- 
+  public ListaCuantroImagenes( NombreAlbun:string ):any{
+     this.CargalimitImagenes(NombreAlbun,4);
+    return this.ObservableImagen
+  }
 
 }

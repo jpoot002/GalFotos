@@ -1,7 +1,8 @@
 import { Component, OnInit, } from '@angular/core';
-import { FileArchivo } from '../../modelos/archivoimagen';
+import { FileArchivo } from '../../modelos/FileArchivo';
 import { Albun }  from '../../modelos/albun'
 import { ImagenesService } from '../../services/imagene/imagenes.service';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-carga',
@@ -27,7 +28,7 @@ export class CargaComponent implements OnInit {
       this.Albunes = albunes;
     })
     this.Show = "true";
-    this.NombreAlbun = "Seleciona un albun"
+    this.NombreAlbun = "Seleciona un album"
   }
 
   public AlertFinalCarga(res: any) {
@@ -36,8 +37,8 @@ export class CargaComponent implements OnInit {
   }
 
   CargarGuardadoImagenes() {
-    this.ImagenesService.NombreAlbun(this.NombreAlbun );
-    this.ImagenesService.CargarGuardadoImagenesFirebase( this.FileArchivo);
+    this.NombreAlbun = (this.NombreAlbun == 'Seleciona un albun'? 'Albun':this.NombreAlbun);
+    this.ImagenesService.CargarGuardadoImagenesFirebase( this.FileArchivo,(this.NombreAlbun == 'Seleciona un album'? 'Albun':this.NombreAlbun));
   }
 
   public LimpiarImagenes() {
@@ -52,7 +53,6 @@ export class CargaComponent implements OnInit {
     this.NombreAlbun = Texto;
   }
 
-  
 }
   
 

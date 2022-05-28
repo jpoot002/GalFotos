@@ -24,22 +24,16 @@
 </div>
 <div class="row pt-3 m-auto">
 
-    <div class="col-md-4 col-lg-2 pb-3"  *ngFor="let imagen of Imagenes;">
+    <div class="col-md-4 col-lg-2 pb-3"  *ngFor="let imagen of fileArchivoInput; let indexOfelement=index;">
         <div class="card card-custom bg-white border-white border-0">
             <div class="card-body">
             <div class="img-move-wrapper">
-                <img class="img-move img-move-4 img-fluid" src="https://i.pinimg.com/originals/8b/da/ca/8bdaca81d5ddbaeb92b61d6b5787d866.jpg" alt="foto 4"> 
-                <img class="img-move img-move-3 img-fluid" src="https://i.pinimg.com/originals/8b/da/ca/8bdaca81d5ddbaeb92b61d6b5787d866.jpg" alt="foto 3"> 
-                <img class="img-move img-move-2 img-fluid" src="https://i.pinimg.com/originals/8b/da/ca/8bdaca81d5ddbaeb92b61d6b5787d866.jpg" alt="foto 2">
-                <img class="img-move img-move-1 img-fluid" src="https://i.pinimg.com/originals/8b/da/ca/8bdaca81d5ddbaeb92b61d6b5787d866.jpg" alt="foto 1">  
-                <img class="img-fluid invisible d-none d-md-block" src="https://firebasestorage.googleapis.com/v0/b/login-app-c35c9.appspot.com/o/img%2F1366_2000.jpg?alt=media&token=50780cc2-313e-4cd0-b994-6c5dd99ae263" alt="foto ficticia">
+                <img class="img-move img-move-{{indexOfelement}} img-fluid" [src]="img.url" alt="foto {{indexOfelement}}" *ngFor="let img of imagen[1]; let indexOfelement=index;">  
             </div>
-            <p class="h5 text-center pt-3">See the card on GitHub:</p>
+            <p class="h5 text-center pt-3">{{imagen[0].Nombre}}</p>
         </div>
     </div>
     </div>
-    
-
 </div>
 
 <script>

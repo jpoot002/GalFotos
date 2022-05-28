@@ -18,10 +18,4 @@ export class FileArchivo {
         this.fecha  = new Date();
         this.temurl= temurl;
     }
-
-   
-
-
-
-    
 }

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargaComponent } from './components/carga/carga.component';
+import { AlgunComponent } from './components/algun/algun.component';
 
 const routes: Routes = [
-  { path: 'Inico', component: InicioComponent },
-    { path: 'Carga', component: CargaComponent },
-    { path: '**', pathMatch: 'full', redirectTo: 'Inico' }
+  { path: 'Inicio', component: InicioComponent },
+  { path: 'Carga', component: CargaComponent },
+  { path: 'Algun', component: AlgunComponent },
+  { path: '**', pathMatch: 'full', redirectTo: 'Inicio' }
 ];
 
 @NgModule({

@@ -1,0 +1,56 @@
+<div class="tab-content">
+
+    <ul class="switcher clearfix">
+        <li class="first logo " data-tab="login">					
+                <a>Login</a>			
+        </li>
+        <li class="second logo active" data-tab="sign_up">
+                <a>Sign Up</a>	
+        </li>
+    </ul>
+
+
+    <div class="tab-pane active" id="login">
+        <div class="container">
+   
+
+                <h1> Nuevo álbum</h1>
+                
+                <div class="col-lg-12 login-form">
+                    <div class="col-lg-12 login-form">
+                        <form [formGroup]="profileForm" (ngSubmit)="Guardar()">
+                            <div class="form-group">
+                                <label class="form-control-label">Nombre del Albun</label>
+                                <input type="text" class="form-control"  formControlName="NombreAlbun">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Descripción</label>
+                                <input  type="text" class="form-control" formControlName="Descripcion">
+                            </div>
+                
+                            <div class="col-lg-12 loginbttm">
+                                
+                                <div class="col-lg-6 login-btm login-button">
+                                    <button type="submit" class="btn btn-outline-primary" >Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+      
+        </div>
+    </div>
+
+
+
+    <div class="tab-pane " id="sign_up">
+    
+    </div>
+
+
+
+</div>
+  
+ 
+
+   

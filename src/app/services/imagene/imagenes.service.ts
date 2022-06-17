@@ -29,7 +29,7 @@ export class ImagenesService {
   private customSubject = new Subject<any>();
   customObservable = this.customSubject.asObservable();
 
-
+  //Imagenes
   private CargaImagenes( NombreAlbun:string ){
     this.itemsCollection =  this.AngularFirestore.collection<Imagen>(NombreAlbun);
     this.ObservableImagen = this.itemsCollection.snapshotChanges().pipe(
@@ -51,6 +51,13 @@ export class ImagenesService {
       }))
     );
   }
+
+
+  private GuardarImagenFirebase( imagen: { nombre: string, url: string,  fecha:Date } , NombreAlbun:string ) {
+    this.AngularFirestore.collection(`/${ NombreAlbun }` )
+    .add( Object.assign({}, imagen));
+  }
+
   public CargarGuardadoImagenesFirebase( imagenes: FileArchivo[], NombreAlbun:string  ) {
 
     const storageRef = firebase.storage().ref();
@@ -85,28 +92,27 @@ export class ImagenesService {
 
   }
 
-
-  private GuardarImagenFirebase( imagen: { nombre: string, url: string,  fecha:Date } , NombreAlbun:string ) {
-
-    this.AngularFirestore.collection(`/${ NombreAlbun }` )
-    .add( Object.assign({}, imagen));
+  public ListaImagenes( NombreAlbun:string  ):any{
+    this.CargaImagenes(NombreAlbun);
+    return this.ObservableImagen;
   }
 
-  private EliminarFirestore(Nombre:string, Id:number, NombreAlbun:string ){
-    this.AngularFirestore.collection<Imagen>(NombreAlbun).doc(String(Id)).delete().then(()=> {
-      console.log(Nombre, 'Borrada de la base de datos');
-    }).catch(function(error) {
-      console.error('Error al eliminar ', Nombre);
-    })
-  }
-  
-  private EliminiarStorage(Nombre:string, Id:number, NombreAlbun:string ){
-    const storageRef = firebase.storage().ref();
-    storageRef.child(`${ NombreAlbun}/${ Nombre }`).delete().then(()=> {
-      console.log(Nombre, 'Borrada de la base de datos');
-    }).catch(function(error) {
-      console.error('Error al eliminar ', Nombre);
-    })
+  public ListaCuantroImagenes( NombreAlbun:string ):any{
+    this.CargalimitImagenes(NombreAlbun,4);
+   return this.ObservableImagen
+ }
+
+  public FinalizarGuardado(Conteo:number, Length:number) {
+    if(Conteo==Length){
+      this.customSubject.next("guardado finalizado");
+    }
+}
+
+  //Albunes
+  private GuardarAlbunFirebase( albun:Albun ) {
+    console.log(albun)
+    this.AngularFirestore.collection(`/${ 'NombreAlbum' }` )
+    .add( Object.assign({}, albun));
   }
 
   private CargarAlbun(){
@@ -124,26 +130,42 @@ export class ImagenesService {
     this.CargarAlbun();
     return this.ObservableAlbun
   }
-  
-  public ListaImagenes( NombreAlbun:string  ):any{
-    this.CargaImagenes(NombreAlbun);
-    return this.ObservableImagen;
+
+  public GuardarAlbun(nombre: string, descripcion: string){
+    this.GuardarAlbunFirebase(new Albun(nombre, descripcion))
+  }
+
+
+
+
+
+
+
+
+
+///// Para eliminar losdatos
+  private EliminarFirestore(Nombre:string, Id:number, NombreAlbun:string ){
+    this.AngularFirestore.collection<Imagen>(NombreAlbun).doc(String(Id)).delete().then(()=> {
+      console.log(Nombre, 'Borrada de la base de datos');
+    }).catch(function(error) {
+      console.error('Error al eliminar ', Nombre);
+    })
   }
   
+  private EliminiarStorage(Nombre:string, Id:number, NombreAlbun:string ){
+    const storageRef = firebase.storage().ref();
+    storageRef.child(`${ NombreAlbun}/${ Nombre }`).delete().then(()=> {
+      console.log(Nombre, 'Borrada de la base de datos');
+    }).catch(function(error) {
+      console.error('Error al eliminar ', Nombre);
+    })
+  }
+
   public Eliminar(Nombre:string, Id:number, NombreAlbun:string ){
     this.EliminarFirestore(Nombre,Id, NombreAlbun);
     this.EliminiarStorage(Nombre,Id, NombreAlbun);
   }
 
-  public FinalizarGuardado(Conteo:number, Length:number) {
-      if(Conteo==Length){
-        this.customSubject.next("guardado finalizado");
-      }
-  }
 
-  public ListaCuantroImagenes( NombreAlbun:string ):any{
-     this.CargalimitImagenes(NombreAlbun,4);
-    return this.ObservableImagen
-  }
 
 }

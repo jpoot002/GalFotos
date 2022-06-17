@@ -7,11 +7,7 @@ export class AlbunImagen  {
         any
     ]
 
-    constructor(  albun:Albun, any:any ) {
-        this.Albun = albun;
-        this.Imagen = any;
-       
-    }
+
 }
 
 

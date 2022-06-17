@@ -1,0 +1,33 @@
+.login-title {
+    text-align: center;
+    color: #ECF0F5;
+}
+
+input[type=text] {
+    background-color: #1A2226;
+    border-bottom: 2px solid #0DB8DE;
+    color: #ECF0F5;
+}
+
+.form-control-label {
+    font-size: 10px;
+    color: #6C6C6C;
+    letter-spacing: 1px;
+}
+
+.btn-outline-primary {
+    border-color: #0DB8DE;
+    color: #0DB8DE;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0db8de59;
+}
+
+.login-button {
+    text-align: right;
+}
+
+
+
+

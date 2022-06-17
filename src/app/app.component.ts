@@ -14,12 +14,13 @@ export class AppComponent implements OnInit {
   public Albunes:Albun;
 
   constructor (private router: Router,
-              public ImagenesService: ImagenesService){}
+              public ImagenesService: ImagenesService){
+                this.ImagenesService.ListaAlbunes().subscribe(albunes=>{
+                  this.Albunes = albunes;
+                })
+              }
 
   ngOnInit() {
-    this.ImagenesService.ListaAlbunes().subscribe(albunes=>{
-      this.Albunes = albunes;
-    })
   }
 
   public Carga() {
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
   }
 
   public Inicio() {
-    this.router.navigate(['Inico']);
+    this.router.navigate(['Inicio']);
   }
   
 }

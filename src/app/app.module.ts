@@ -21,6 +21,7 @@ import { ImagenesService } from './services/imagene/imagenes.service';
 //directives
 import { NgDropFilesDirectiveDirective } from './directives/ng-drop-files-directive.directive';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { AlgunComponent } from './components/algun/algun.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
     CargaComponent,
     NgDropFilesDirectiveDirective,
     InicioComponent,
+    AlgunComponent,
   ],
   imports: [
     BrowserModule,

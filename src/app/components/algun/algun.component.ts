@@ -12,6 +12,8 @@ export class AlgunComponent implements OnInit {
 
   constructor( public ImagenesService: ImagenesService) { }
 
+  public ImagenElemento:boolean = false;
+
   profileForm = new FormGroup({
     NombreAlbun: new FormControl(''),
     Descripcion: new FormControl(''),
@@ -27,6 +29,11 @@ export class AlgunComponent implements OnInit {
     }
   }
 
+  public RegisterUpdate(){
+
+    this.ImagenElemento = !this.ImagenElemento;
+
+  }
 
 
 }

@@ -1,16 +1,20 @@
+<button
+(click)="RegisterUpdate()"
+[ngClass]="{'btn btn-danger': ImagenElemento, 'btn-info': !ImagenElemento}">
+</button>
+
 <div class="tab-content">
 
     <ul class="switcher clearfix">
-        <li class="first logo " data-tab="login">					
+        <li class="first logo "  data-tab="login">					
                 <a>Login</a>			
         </li>
-        <li class="second logo active" data-tab="sign_up">
+        <li class="second logo active"  data-tab="sign_up">
                 <a>Sign Up</a>	
         </li>
     </ul>
 
-
-    <div class="tab-pane active" id="login">
+    <div [ngClass]="{'tab-pane ': ImagenElemento, 'tab-pane': !ImagenElemento}" >
         <div class="container">
    
 
@@ -43,8 +47,44 @@
 
 
 
-    <div class="tab-pane " id="sign_up">
-    
+    <div [ngClass]="{'tab-pane ': !ImagenElemento, 'tab-pane': ImagenElemento}" >
+        <div class="container">
+   
+
+            <h1> Editar álbum</h1>
+            
+            <div class="col-lg-12 login-form">
+                <div class="col-lg-12 login-form">
+                    
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+
+                    <form [formGroup]="profileForm" (ngSubmit)="Guardar()">
+                        <div class="form-group">
+                            <label class="form-control-label">Nombre del Albun</label>
+                            <input type="text" class="form-control"  formControlName="NombreAlbun">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Descripción</label>
+                            <input  type="text" class="form-control" formControlName="Descripcion">
+                        </div>
+            
+                        <div class="col-lg-12 loginbttm">
+                            
+                            <div class="col-lg-6 login-btm login-button">
+                                <button type="submit" class="btn btn-outline-primary" >Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+  
+    </div>
     </div>
 
 
